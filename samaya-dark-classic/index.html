@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="blue">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8" />
-<script>try{document.documentElement.dataset.theme=localStorage.getItem("samaya-theme")||"blue"}catch(e){}</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
 <title>Samaya ID Cards & Studio — Theni</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,22 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Hind+Madurai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-/* ---- THEMES: blue (default) · gold · light ---- */
-:root,html[data-theme="blue"]{
-  --bg:#0A1426; --bg-rgb:10,20,38; --paper:#0F1D36; --paper-rgb:15,29,54; --cream:#16284A; --cream-rgb:22,40,74;
-  --ink:#F5F1E8; --gold:#5B9BFF; --gold-rgb:91,155,255; --gold2:#3E78D8; --gold-lite:#8DBBFF;
-  --rose:#B0546A; --teal:#3F6E63; --line:rgba(245,241,232,.16); --muted:#A3B0C6;
-  --on-gold:#06101F; --btn:#F2B548; --btn-ink:#1A1204; --soft:#CBD5E6; --bar-bg:#050B16;
-  --ov:.5; --hero:.35; --map-filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.95); color-scheme:dark;
-}
-html[data-theme="gold"]{
-  --bg:#0E0C0A; --bg-rgb:14,12,10; --paper:#17130F; --paper-rgb:23,19,15; --cream:#221B14; --cream-rgb:34,27,20;
-  --ink:#F2EBDD; --gold:#C9A45C; --gold-rgb:201,164,92; --gold2:#A67C3D; --gold-lite:#D9B978;
-  --line:rgba(242,235,221,.16); --muted:#A89F8F;
-  --on-gold:#000; --btn:#C9A45C; --btn-ink:#000; --soft:#d9cfba; --bar-bg:#000;
-  --ov:.5; --hero:.35; --map-filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.9) sepia(.25); color-scheme:dark;
-}
-html[data-theme="light"]{
+/* ---- theme: light studio ---- */
+:root,html[data-theme="light"]{
   --bg:#F6F3EC; --bg-rgb:246,243,236; --paper:#FFFFFF; --paper-rgb:255,255,255; --cream:#EAF0FA; --cream-rgb:234,240,250;
   --ink:#0F1B33; --gold:#1F5FD6; --gold-rgb:31,95,214; --gold2:#1A4DB0; --gold-lite:#9CC2FF;
   --line:rgba(15,27,51,.16); --muted:#55627A;
@@ -307,29 +292,6 @@ form{border-radius:var(--r)}
 .brand .name{letter-spacing:-.01em}
 .ci p{font-weight:400}
 
-/* ---- theme switcher ---- */
-.nav-right{display:flex;align-items:center;gap:16px}
-.theme-sw{display:flex;gap:7px;padding:6px;border:1px solid var(--line);border-radius:999px;background:rgba(var(--bg-rgb),.5)}
-.theme-sw button{width:22px;height:22px;border-radius:50%;border:1px solid var(--line);cursor:pointer;padding:0;transition:transform .45s var(--ease),box-shadow .45s var(--ease)}
-.theme-sw button:hover{transform:scale(1.15)}
-.theme-sw button[aria-pressed="true"]{box-shadow:0 0 0 2px var(--bg),0 0 0 3.5px var(--gold)}
-.theme-sw [data-set="blue"]{background:linear-gradient(135deg,#0A1426 50%,#5B9BFF 50%)}
-.theme-sw [data-set="gold"]{background:linear-gradient(135deg,#0E0C0A 50%,#C9A45C 50%)}
-.theme-sw [data-set="light"]{background:linear-gradient(135deg,#F6F3EC 50%,#1F5FD6 50%)}
-@media(max-width:600px){
-  nav{padding:14px 5vw}
-  .nav-right{gap:8px}
-  .theme-sw{gap:5px;padding:5px}
-  .theme-sw button{width:18px;height:18px}
-  .nav-cta{padding:9px 12px;font-size:10px;letter-spacing:.1em}
-  .brand .name{font-size:20px}
-}
-
-/* smooth colour fade while switching theme */
-@media(prefers-reduced-motion:no-preference){
-  html.theme-fade,html.theme-fade *,html.theme-fade *::before,html.theme-fade *::after{
-    transition:background-color .7s ease,color .7s ease,border-color .7s ease,box-shadow .7s ease,filter .7s ease!important}
-}
 
 /* ---- nav: visible only at the top of the page, slides away when scrolling ---- */
 nav{transition:transform .55s var(--ease),opacity .45s ease,visibility 0s}
@@ -360,7 +322,76 @@ html[data-theme="light"] .f textarea:focus{background:#fff}
 html[data-theme="light"] .shop-list li{background:rgba(var(--gold-rgb),.08);color:var(--ink)}
 html[data-theme="light"] .btn-line{background:rgba(255,255,255,.55)}
 html[data-theme="light"] .btn-line:hover{background:var(--gold)}
-html[data-theme="light"] .theme-sw{background:rgba(255,255,255,.7)}
+
+/* ---- hamburger menu (tablet + phone) ---- */
+.nav-right{display:flex;align-items:center;gap:12px}
+.menu-btn{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:var(--r-sm);background:rgba(255,255,255,.7);cursor:pointer;padding:0;flex-direction:column;align-items:center;justify-content:center;gap:5px;transition:background .4s var(--ease),border-color .4s var(--ease)}
+.menu-btn span{display:block;width:20px;height:2px;background:var(--ink);border-radius:2px;transition:transform .45s var(--ease),opacity .3s ease}
+.menu-btn[aria-expanded="true"]{border-color:var(--gold)}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+@media(max-width:900px){
+  .menu-btn{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;gap:0;position:absolute;top:100%;left:0;right:0;padding:6px 6vw 16px;background:rgba(255,255,255,.97);border-bottom:1px solid var(--line);box-shadow:0 22px 34px -22px rgba(15,27,51,.45)}
+  .nav-links.open a{opacity:1;padding:15px 0;border-bottom:1px solid var(--line);font-size:13px}
+  .nav-links.open a:last-child{border-bottom:0}
+}
+
+/* ---- phone layout ---- */
+@media(max-width:700px){
+  section{padding:64px 5vw}
+  .head{margin-bottom:36px}
+  .head h2{font-size:clamp(28px,8vw,38px)}
+  .head p,.hero-text p.lead{font-size:15px}
+  .ci p{overflow-wrap:anywhere}
+
+  .topbar{justify-content:center;text-align:center;padding:8px 5vw;font-size:10.5px;letter-spacing:.06em}
+  .topbar span:first-child{display:none}
+
+  nav{padding:12px 5vw}
+  .brand .name{font-size:21px}
+  .brand .sub{font-size:8px;letter-spacing:.3em}
+  .nav-cta{padding:10px 14px;font-size:10px;letter-spacing:.1em}
+  .nav-right{gap:8px}
+
+  .hero,.hero-text{min-height:100vh;min-height:100svh}
+  .hero-text{padding:14vw 6vw 120px}
+  .shop-name{font-size:clamp(46px,15vw,64px)}
+  .hero-btns{flex-direction:column;align-items:stretch;width:100%;max-width:320px;margin:0 auto}
+  .hero-btns .btn{text-align:center}
+  .hero-badge{left:50%;transform:translateX(-50%);bottom:22px;white-space:nowrap;text-align:center;padding:12px 18px}
+
+  .duo{min-height:0}
+  .half{min-height:62vh}
+  .half.info{min-height:0;padding:56px 0}
+  .half.info::before{inset:12px;border-radius:22px}
+  .info-in{width:calc(100% - 56px);padding:0}
+  .info-head{padding:22px 18px 18px}
+  .info .ci-grid{grid-template-columns:1fr}
+  .shop-list{padding:18px}
+  .shop-list li{font-size:12.5px;padding:6px 12px}
+  .info .hero-btns{max-width:none}
+
+  .svc{padding:0 22px 28px}
+  .svc-img{margin:0 -22px 22px}
+  .gallery{grid-auto-rows:150px;gap:12px}
+
+  .mapbox{height:auto;min-height:0;display:flex;flex-direction:column}
+  .mapbox iframe{position:static;height:300px;display:block}
+  .mapcap{position:static;max-width:none;border:0;border-top:1px solid var(--line);border-radius:0;background:rgba(255,255,255,.92)}
+  .mapcap .btn{display:block;text-align:center}
+
+  .cine{min-height:56vh}
+  .proc{gap:30px 16px}
+  .contact-wrap{gap:36px}
+  form{padding:26px 20px}
+  footer{padding:44px 5vw 26px;flex-direction:column;align-items:center;text-align:center}
+}
+@media(max-width:420px){
+  .proc{grid-template-columns:1fr}
+  .gallery{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
 <body>
@@ -379,16 +410,12 @@ html[data-theme="light"] .theme-sw{background:rgba(255,255,255,.7)}
     <div class="name">Samaya</div>
     <div class="sub">Id Cards &amp; Studio</div>
   </a>
-  <div class="nav-links">
+  <div class="nav-links" id="navlinks">
     <a href="#about">About</a><a href="#services">Services</a><a href="#location">Find Us</a><a href="#gallery">Gallery</a><a href="#events">Events</a><a href="#contact">Contact</a>
   </div>
   <div class="nav-right">
-    <div class="theme-sw" role="group" aria-label="Choose colour theme">
-      <button type="button" data-set="blue" aria-label="Blue theme" title="Blue"></button>
-      <button type="button" data-set="gold" aria-label="Gold theme" title="Gold"></button>
-      <button type="button" data-set="light" aria-label="Light theme" title="Light"></button>
-    </div>
     <a href="#contact" class="nav-cta">Get a Quote</a>
+    <button type="button" class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="navlinks"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
@@ -555,17 +582,12 @@ html[data-theme="light"] .theme-sw{background:rgba(255,255,255,.7)}
 <script>
 const io=new IntersectionObserver(es=>es.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*80);io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
-const root=document.documentElement,swBtns=document.querySelectorAll('.theme-sw button');
-function setTheme(t,fade){
-  if(fade){root.classList.add('theme-fade');clearTimeout(setTheme.t);setTheme.t=setTimeout(()=>root.classList.remove('theme-fade'),800)}
-  root.dataset.theme=t;
-  swBtns.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.set===t)));
-  try{localStorage.setItem('samaya-theme',t)}catch(e){}
-}
-swBtns.forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.set,true)));
-setTheme(root.dataset.theme||'blue',false);
+const menuBtn=document.querySelector('.menu-btn'),navLinks=document.querySelector('.nav-links');
+function closeMenu(){navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');menuBtn.setAttribute('aria-label','Open menu')}
+menuBtn.addEventListener('click',()=>{const o=navLinks.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(o));menuBtn.setAttribute('aria-label',o?'Close menu':'Open menu')});
+navLinks.addEventListener('click',e=>{if(e.target.closest('a'))closeMenu()});
 const navEl=document.querySelector('nav');let navTick=false;
-function navCheck(){navEl.classList.toggle('nav-hidden',window.scrollY>40);navTick=false}
+function navCheck(){const h=window.scrollY>40;navEl.classList.toggle('nav-hidden',h);if(h)closeMenu();navTick=false}
 window.addEventListener('scroll',()=>{if(!navTick){navTick=true;requestAnimationFrame(navCheck)}},{passive:true});
 navCheck();
 function handleSubmit(e){e.preventDefault();const b=document.getElementById('btntxt');const o=b.textContent;b.textContent="Thank you — we'll be in touch ✓";setTimeout(()=>{b.textContent=o;e.target.reset()},2600);}
