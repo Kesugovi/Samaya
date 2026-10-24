@@ -16,21 +16,21 @@
   --ink:#F5F1E8; --gold:#5B9BFF; --gold-rgb:91,155,255; --gold2:#3E78D8; --gold-lite:#8DBBFF;
   --rose:#B0546A; --teal:#3F6E63; --line:rgba(245,241,232,.16); --muted:#A3B0C6;
   --on-gold:#06101F; --btn:#F2B548; --btn-ink:#1A1204; --soft:#CBD5E6; --bar-bg:#050B16;
-  --ov:.5; --hero:.35; --map-filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.95);
+  --ov:.5; --hero:.35; --map-filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.95); color-scheme:dark;
 }
 html[data-theme="gold"]{
   --bg:#0E0C0A; --bg-rgb:14,12,10; --paper:#17130F; --paper-rgb:23,19,15; --cream:#221B14; --cream-rgb:34,27,20;
   --ink:#F2EBDD; --gold:#C9A45C; --gold-rgb:201,164,92; --gold2:#A67C3D; --gold-lite:#D9B978;
   --line:rgba(242,235,221,.16); --muted:#A89F8F;
   --on-gold:#000; --btn:#C9A45C; --btn-ink:#000; --soft:#d9cfba; --bar-bg:#000;
-  --ov:.5; --hero:.35; --map-filter:var(--map-filter);
+  --ov:.5; --hero:.35; --map-filter:invert(92%) hue-rotate(180deg) brightness(.9) contrast(.9) sepia(.25); color-scheme:dark;
 }
 html[data-theme="light"]{
   --bg:#F6F3EC; --bg-rgb:246,243,236; --paper:#FFFFFF; --paper-rgb:255,255,255; --cream:#EAF0FA; --cream-rgb:234,240,250;
   --ink:#0F1B33; --gold:#1F5FD6; --gold-rgb:31,95,214; --gold2:#1A4DB0; --gold-lite:#9CC2FF;
   --line:rgba(15,27,51,.16); --muted:#55627A;
   --on-gold:#fff; --btn:#1F5FD6; --btn-ink:#fff; --soft:#DCE5F5; --bar-bg:#0F1B33;
-  --ov:.62; --hero:.55; --map-filter:none;
+  --ov:.9; --hero:.76; --map-filter:none; color-scheme:light;
 }
 :root{--font-head:'Fraunces','Hind Madurai',Georgia,serif;--font-body:'Hind Madurai','Inter',system-ui,sans-serif}
 html{background:var(--bg)}
@@ -330,6 +330,37 @@ form{border-radius:var(--r)}
   html.theme-fade,html.theme-fade *,html.theme-fade *::before,html.theme-fade *::after{
     transition:background-color .7s ease,color .7s ease,border-color .7s ease,box-shadow .7s ease,filter .7s ease!important}
 }
+
+/* ---- nav: visible only at the top of the page, slides away when scrolling ---- */
+nav{transition:transform .55s var(--ease),opacity .45s ease,visibility 0s}
+nav.nav-hidden{transform:translateY(-110%);opacity:0;pointer-events:none;visibility:hidden;transition:transform .55s var(--ease),opacity .45s ease,visibility 0s .55s}
+
+/* ---- light theme fixes ---- */
+html[data-theme="light"] .photo-panel .rec{color:var(--ink)}
+html[data-theme="light"] .photo-panel .rec i{background:#d93a3a}
+html[data-theme="light"] .hero-badge{background:rgba(255,255,255,.82);border-color:var(--line)}
+html[data-theme="light"] .hero-badge strong{color:var(--ink)}
+html[data-theme="light"] nav{background:rgba(255,255,255,.88);box-shadow:0 8px 28px -20px rgba(15,27,51,.45)}
+html[data-theme="light"] .svc,
+html[data-theme="light"] .info-head,
+html[data-theme="light"] .info .ci-grid .ci,
+html[data-theme="light"] .shop-list,
+html[data-theme="light"] form,
+html[data-theme="light"] .mapbox{box-shadow:0 14px 34px -22px rgba(15,27,51,.4)}
+html[data-theme="light"] .svc:hover,
+html[data-theme="light"] .g:hover,
+html[data-theme="light"] .info .ci-grid .ci:hover{box-shadow:0 22px 42px -22px rgba(15,27,51,.45)}
+html[data-theme="light"] section:not(.hero){background:rgba(var(--bg-rgb),.55)}
+html[data-theme="light"] .f input,
+html[data-theme="light"] .f select,
+html[data-theme="light"] .f textarea{background:rgba(var(--bg-rgb),.7)}
+html[data-theme="light"] .f input:focus,
+html[data-theme="light"] .f select:focus,
+html[data-theme="light"] .f textarea:focus{background:#fff}
+html[data-theme="light"] .shop-list li{background:rgba(var(--gold-rgb),.08);color:var(--ink)}
+html[data-theme="light"] .btn-line{background:rgba(255,255,255,.55)}
+html[data-theme="light"] .btn-line:hover{background:var(--gold)}
+html[data-theme="light"] .theme-sw{background:rgba(255,255,255,.7)}
 </style>
 </head>
 <body>
@@ -533,6 +564,10 @@ function setTheme(t,fade){
 }
 swBtns.forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.set,true)));
 setTheme(root.dataset.theme||'blue',false);
+const navEl=document.querySelector('nav');let navTick=false;
+function navCheck(){navEl.classList.toggle('nav-hidden',window.scrollY>40);navTick=false}
+window.addEventListener('scroll',()=>{if(!navTick){navTick=true;requestAnimationFrame(navCheck)}},{passive:true});
+navCheck();
 function handleSubmit(e){e.preventDefault();const b=document.getElementById('btntxt');const o=b.textContent;b.textContent="Thank you — we'll be in touch ✓";setTimeout(()=>{b.textContent=o;e.target.reset()},2600);}
 </script>
 </body>
